@@ -1,0 +1,218 @@
+@prefix recipe: <https://example.org/recipe/> .
+@prefix schema: <https://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+recipe:ontology a owl:Ontology ;
+    dcterms:language "en", "da" ;
+    rdfs:label "Recipe ontology"@en ;
+    rdfs:label "Opskriftsontologi"@da ;
+    rdfs:comment "An ontology for recipes, ingredients, nutrition, classifications, and dietary information."@en ;
+    rdfs:comment "En ontologi for opskrifter, ingredienser, ernæring, klassifikationer og kostoplysninger."@da ;
+    owl:versionInfo "0.1.0" .
+
+#################################################################
+# Classes
+#################################################################
+
+recipe:Recipe a owl:Class ;
+    rdfs:subClassOf schema:Recipe ;
+    rdfs:label "Recipe"@en ;
+    rdfs:label "Opskrift"@da .
+
+recipe:Ingredient a owl:Class ;
+    rdfs:label "Ingredient"@en ;
+    rdfs:label "Ingrediens"@da .
+
+recipe:IngredientUsage a owl:Class ;
+    rdfs:label "Ingredient usage"@en ;
+    rdfs:label "Ingrediensanvendelse"@da ;
+    rdfs:comment "An ingredient as used in one recipe, including quantity, unit, weight, and original text."@en ;
+    rdfs:comment "En ingrediens anvendt i en opskrift, inklusive mængde, enhed, vægt og oprindelig tekst."@da .
+
+recipe:Nutrient a owl:Class ;
+    rdfs:label "Nutrient"@en ;
+    rdfs:label "Næringsstof"@da .
+
+recipe:NutrientAmount a owl:Class ;
+    rdfs:label "Nutrient amount"@en ;
+    rdfs:label "Næringsstofmængde"@da ;
+    rdfs:comment "The total amount of a nutrient in an entire recipe."@en ;
+    rdfs:comment "Den samlede mængde af et næringsstof i en hel opskrift."@da .
+
+recipe:Cuisine a owl:Class ;
+    rdfs:label "Cuisine"@en ;
+    rdfs:label "Køkken"@da .
+
+recipe:MealType a owl:Class ;
+    rdfs:label "Meal type"@en ;
+    rdfs:label "Måltidstype"@da .
+
+recipe:DishType a owl:Class ;
+    rdfs:label "Dish type"@en ;
+    rdfs:label "Rettype"@da .
+
+recipe:DietaryLabel a owl:Class ;
+    rdfs:label "Dietary label"@en ;
+    rdfs:label "Kostmærkning"@da .
+
+recipe:HealthLabel a owl:Class ;
+    rdfs:label "Health label"@en ;
+    rdfs:label "Sundhedsmærkning"@da .
+
+recipe:Caution a owl:Class ;
+    rdfs:label "Caution"@en ;
+    rdfs:label "Advarsel"@da .
+
+#################################################################
+# Object properties
+#################################################################
+
+recipe:ingredientUsage a owl:ObjectProperty ;
+    rdfs:label "ingredient usage"@en ;
+    rdfs:label "ingrediensanvendelse"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range recipe:IngredientUsage .
+
+recipe:ingredient a owl:ObjectProperty ;
+    rdfs:label "ingredient"@en ;
+    rdfs:label "ingrediens"@da ;
+    rdfs:domain recipe:IngredientUsage ;
+    rdfs:range recipe:Ingredient .
+
+recipe:nutrientAmount a owl:ObjectProperty ;
+    rdfs:label "nutrient amount"@en ;
+    rdfs:label "næringsstofmængde"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range recipe:NutrientAmount .
+
+recipe:nutrient a owl:ObjectProperty ;
+    rdfs:label "nutrient"@en ;
+    rdfs:label "næringsstof"@da ;
+    rdfs:domain recipe:NutrientAmount ;
+    rdfs:range recipe:Nutrient .
+
+recipe:hasCuisine a owl:ObjectProperty ;
+    rdfs:label "has cuisine"@en ;
+    rdfs:label "har køkken"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range recipe:Cuisine .
+
+recipe:hasMealType a owl:ObjectProperty ;
+    rdfs:label "has meal type"@en ;
+    rdfs:label "har måltidstype"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range recipe:MealType .
+
+recipe:hasDishType a owl:ObjectProperty ;
+    rdfs:label "has dish type"@en ;
+    rdfs:label "har rettype"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range recipe:DishType .
+
+recipe:hasDietaryLabel a owl:ObjectProperty ;
+    rdfs:label "has dietary label"@en ;
+    rdfs:label "har kostmærkning"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range recipe:DietaryLabel .
+
+recipe:hasHealthLabel a owl:ObjectProperty ;
+    rdfs:label "has health label"@en ;
+    rdfs:label "har sundhedsmærkning"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range recipe:HealthLabel .
+
+recipe:hasCaution a owl:ObjectProperty ;
+    rdfs:label "has caution"@en ;
+    rdfs:label "har advarsel"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range recipe:Caution .
+
+#################################################################
+# Recipe datatype properties
+#################################################################
+
+recipe:sourceName a owl:DatatypeProperty ;
+    rdfs:label "source name"@en ;
+    rdfs:label "kildenavn"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range xsd:string .
+
+recipe:servings a owl:DatatypeProperty ;
+    rdfs:label "servings"@en ;
+    rdfs:label "portioner"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range xsd:decimal .
+
+recipe:totalCalories a owl:DatatypeProperty ;
+    rdfs:label "total calories"@en ;
+    rdfs:label "samlede kalorier"@da ;
+    rdfs:comment "Total energy in kilocalories for the entire recipe, not per serving."@en ;
+    rdfs:comment "Samlet energi i kilokalorier for hele opskriften, ikke pr. portion."@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range xsd:decimal .
+
+recipe:totalWeightGrams a owl:DatatypeProperty ;
+    rdfs:label "total weight in grams"@en ;
+    rdfs:label "samlet vægt i gram"@da ;
+    rdfs:domain recipe:Recipe ;
+    rdfs:range xsd:decimal .
+
+#################################################################
+# Ingredient usage datatype properties
+#################################################################
+
+recipe:quantity a owl:DatatypeProperty ;
+    rdfs:label "quantity"@en ;
+    rdfs:label "mængde"@da ;
+    rdfs:domain recipe:IngredientUsage ;
+    rdfs:range xsd:decimal .
+
+recipe:unit a owl:DatatypeProperty ;
+    rdfs:label "unit"@en ;
+    rdfs:label "enhed"@da ;
+    rdfs:domain recipe:IngredientUsage ;
+    rdfs:range xsd:string .
+
+recipe:ingredientWeightGrams a owl:DatatypeProperty ;
+    rdfs:label "ingredient weight in grams"@en ;
+    rdfs:label "ingrediensvægt i gram"@da ;
+    rdfs:domain recipe:IngredientUsage ;
+    rdfs:range xsd:decimal .
+
+recipe:ingredientText a owl:DatatypeProperty ;
+    rdfs:label "original ingredient text"@en ;
+    rdfs:label "oprindelig ingredienstekst"@da ;
+    rdfs:domain recipe:IngredientUsage ;
+    rdfs:range rdf:langString .
+
+#################################################################
+# Nutrient datatype properties
+#################################################################
+
+recipe:nutrientCode a owl:DatatypeProperty ;
+    rdfs:label "nutrient code"@en ;
+    rdfs:label "næringsstofkode"@da ;
+    rdfs:domain recipe:Nutrient ;
+    rdfs:range xsd:string .
+
+recipe:amount a owl:DatatypeProperty ;
+    rdfs:label "amount"@en ;
+    rdfs:label "mængde"@da ;
+    rdfs:domain recipe:NutrientAmount ;
+    rdfs:range xsd:decimal .
+
+recipe:nutrientUnit a owl:DatatypeProperty ;
+    rdfs:label "nutrient unit"@en ;
+    rdfs:label "næringsstofenhed"@da ;
+    rdfs:domain recipe:NutrientAmount ;
+    rdfs:range xsd:string .
+
+recipe:dailyValuePercent a owl:DatatypeProperty ;
+    rdfs:label "daily value percentage"@en ;
+    rdfs:label "procent af daglig værdi"@da ;
+    rdfs:domain recipe:NutrientAmount ;
+    rdfs:range xsd:decimal .
